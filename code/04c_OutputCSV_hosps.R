@@ -11,14 +11,14 @@ Lydia_simpleARIMA_hosps <- data.frame(forecast_date = date(2880),
 Lydia_simpleARIMA_hosps$forecast_date <- rep("2023-10-16", N_rows_per_country*N_countries_hosp)
 Lydia_simpleARIMA_hosps$forecast_date <- as.Date(Lydia_simpleARIMA_hosps$forecast_date)
 
-Lydia_simpleARIMA_hosps$target <- rep(c("0 wk ahead inc case", "1 wk ahead inc case", "2 wk ahead inc case", "3 wk ahead inc case"),
-                                       each = N_quantiles*N_countries_hosp)
+Lydia_simpleARIMA_hosps$target <- rep(rep(c("1 wk ahead inc case", "2 wk ahead inc case", "3 wk ahead inc case", "4 wk ahead inc case"),
+                                       each = N_quantiles), N_countries_hosp)
 
 for (i in 1:2880){
-  Lydia_simpleARIMA_hosps$target_end_date[i] <- ifelse(Lydia_simpleARIMA_hosps$target[i] == "0 wk ahead inc case", Lydia_simpleARIMA_hosps$forecast_date[i] + days(5),
-                                                        ifelse(Lydia_simpleARIMA_hosps$target[i] == "1 wk ahead inc case", Lydia_simpleARIMA_hosps$forecast_date[i] + days(5+7),
-                                                               ifelse(Lydia_simpleARIMA_hosps$target[i] == "2 wk ahead inc case", Lydia_simpleARIMA_hosps$forecast_date[i] + days(5+14),
-                                                                      ifelse(Lydia_simpleARIMA_hosps$target[i] == "3 wk ahead inc case", Lydia_simpleARIMA_hosps$forecast_date[i] + days(5+21)))))
+  Lydia_simpleARIMA_hosps$target_end_date[i] <- ifelse(Lydia_simpleARIMA_hosps$target[i] == "1 wk ahead inc case", Lydia_simpleARIMA_hosps$forecast_date[i] + days(5),
+                                                        ifelse(Lydia_simpleARIMA_hosps$target[i] == "2 wk ahead inc case", Lydia_simpleARIMA_hosps$forecast_date[i] + days(5+7),
+                                                               ifelse(Lydia_simpleARIMA_hosps$target[i] == "3 wk ahead inc case", Lydia_simpleARIMA_hosps$forecast_date[i] + days(5+14),
+                                                                      ifelse(Lydia_simpleARIMA_hosps$target[i] == "4 wk ahead inc case", Lydia_simpleARIMA_hosps$forecast_date[i] + days(5+21)))))
 }
 
 Lydia_simpleARIMA_hosps$location <- rep(unique(data_hosps$country_code), each = N_rows_per_country)

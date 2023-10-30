@@ -8,7 +8,7 @@ source("code/02_DataPreparation.R")
 arima_models_bycountry_deaths <- lapply(ts_bycountry_deaths, # iterate over all countries
                                         function(y)
                                           summary(auto.arima(y, 
-                                                             seasonal = TRUE, 
+                                                             seasonal = FALSE, 
                                                              approximation = FALSE, 
                                                              trace = FALSE, 
                                                              stepwise = FALSE)
