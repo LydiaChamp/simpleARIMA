@@ -1,0 +1,52 @@
+# ---- 1. Set up ----
+source("code/01_SetUp.R") 
+
+# ---- 2. Load Data ----
+source("code/02_DataPreparation.R")
+
+datasets_bygroup(data, "TransmissionMode")
+datasets_bygroup(data, "Overall")
+
+# ---- 3. Plot Data ----
+source("code/03a_PlotData.R")
+
+create_tables_figures()
+
+source("code/03b_TimeSeriesPlot.R")
+
+plot_time_series(data, "Respiratory")
+
+# ---- 4. Run Drift method ----
+source("code/04_DriftMethod.R")
+
+forecasts_bygroup(data, "disease_name")
+forecasts_bygroup(data, "Overall")
+
+# ---- 5. Plot Forecasts ----
+source("code/05_PlotForecasts.R")
+
+plot_forecasts(data, "TransmissionMode")
+plot_forecasts(data, "Overall")
+
+data_Austria <- data %>%
+  filter(RegionName == "Austria")
+
+plot_forecasts(data_Austria, "Overall")
+
+# ---- 6. Variation Table ----
+source("code/06_VariationTable.R")
+variation_table(data, "Overall")
+variation_table(data, "Overall", "Overall")
+variation_table(data, "Respiratory")
+variation_table(data, "Respiratory", "Resp")
+variation_table(data, "Respiratory", "Non_Resp")
+#variation_table(data, "TransmissionMode")
+#variation_table(data, "RegionName")
+
+# ---- 7. Statistical Process Checks ----
+source("code/07_SPC.R")
+
+# ---- 8. Residuals Diagnostics ----
+
+
+
