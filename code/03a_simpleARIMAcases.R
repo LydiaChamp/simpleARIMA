@@ -1,8 +1,8 @@
 # is it the same to aggregate for weeks first and then forecast 4 weeks ahead
 # with daily predictions and add them to present week forecasts?
 
-source("code/01_SetUp.R")
-source("code/02_DataPreparation.R")
+#source("code/01_SetUp.R")
+#source("code/02_DataPreparation.R")
 
 
 arima_models_bycountry_cases <- lapply(ts_bycountry_cases, # iterate over all countries
