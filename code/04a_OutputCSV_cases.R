@@ -11,14 +11,14 @@ Lydia_simpleARIMA_cases <- data.frame(forecast_date = date(2880),
 Lydia_simpleARIMA_cases$forecast_date <- rep(Sys.Date() - 1, N_rows_per_country*N_countries)
 Lydia_simpleARIMA_cases$forecast_date <- as.Date(Lydia_simpleARIMA_cases$forecast_date)
 
-Lydia_simpleARIMA_cases$target <- rep(rep(c("1 wk ahead inc case", "2 wk ahead inc case", "3 wk ahead inc case", "4 wk ahead inc case"),
+Lydia_simpleARIMA_cases$target <- rep(rep(c("0 wk ahead inc case", "1 wk ahead inc case", "2 wk ahead inc case", "3 wk ahead inc case"),
                                       each = N_quantiles), N_countries)
 
 for (i in 1:2880){
-  Lydia_simpleARIMA_cases$target_end_date[i] <- ifelse(Lydia_simpleARIMA_cases$target[i] == "1 wk ahead inc case", Lydia_simpleARIMA_cases$forecast_date[i] + days(5),
-                                                       ifelse(Lydia_simpleARIMA_cases$target[i] == "2 wk ahead inc case", Lydia_simpleARIMA_cases$forecast_date[i] + days(5+7),
-                                                              ifelse(Lydia_simpleARIMA_cases$target[i] == "3 wk ahead inc case", Lydia_simpleARIMA_cases$forecast_date[i] + days(5+14),
-                                                                     ifelse(Lydia_simpleARIMA_cases$target[i] == "4 wk ahead inc case", Lydia_simpleARIMA_cases$forecast_date[i] + days(5+21)))))
+  Lydia_simpleARIMA_cases$target_end_date[i] <- ifelse(Lydia_simpleARIMA_cases$target[i] == "0 wk ahead inc case", Lydia_simpleARIMA_cases$forecast_date[i] - days(3),
+                                                       ifelse(Lydia_simpleARIMA_cases$target[i] == "1 wk ahead inc case", Lydia_simpleARIMA_cases$forecast_date[i] - days(3) + days(7),
+                                                              ifelse(Lydia_simpleARIMA_cases$target[i] == "2 wk ahead inc case", Lydia_simpleARIMA_cases$forecast_date[i] - days(3) + days(14),
+                                                                     ifelse(Lydia_simpleARIMA_cases$target[i] == "3 wk ahead inc case", Lydia_simpleARIMA_cases$forecast_date[i] - days(3) + days(21)))))
 }
 
 Lydia_simpleARIMA_cases$location <- rep(unique(data_cases$location), each = N_rows_per_country)
