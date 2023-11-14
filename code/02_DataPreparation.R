@@ -36,12 +36,6 @@
 
 
 # ---- Data truth data ----
-## ---- Handle Missing values ----
-data_cases <- data_cases %>% 
-  fill(value, .direction = "up") # weekly_count IF NO TRUTH DATA
-
-data_deaths <- data_deaths %>% 
-  fill(value, .direction = "up") 
 
 ## ---- Time series data ----
 ts_bycountry_cases <- data_cases[,c(1,3,4)] %>% # c(1,6,7) IF NO TRUTH DATA
@@ -52,6 +46,12 @@ ts_bycountry_deaths <- data_deaths[,c(1,3,4)] %>%
   pivot_wider(names_from = location_name, values_from = value) %>%
   select(-1)
 
+## ---- Handle Missing values ----
+ts_bycountry_cases <- ts_bycountry_cases %>%
+  mutate(across(everything(), ~na.locf(.)))# weekly_count IF NO TRUTH DATA
+
+ts_bycountry_deaths <- ts_bycountry_deaths %>%
+  mutate(across(everything(), ~na.locf(.)))
 
 ## ---- Important numbers ----
 N_indicators <- 1 # cases (or deaths or hospitalizations)
